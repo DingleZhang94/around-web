@@ -1,0 +1,16 @@
+.login-form {
+  border: 1px solid white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px #333;
+  padding: 20px;
+  min-width: 400px;
+  width: 50%;
+  }
+
+.login-form a{
+  text-decoration: underline;
+}
+
+.login-form-button {
+    width: 100%;
+  }

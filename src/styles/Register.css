@@ -1,4 +1,20 @@
 .register-form{
-    margin: 40px auto;
-    width: 40%;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px #333;
+    padding: 20px;
+    min-width: 400px;
+    width: 50%;
+}
+
+.register-form .label{
+    display: block;
+}
+
+.register-form a{
+    text-decoration: underline;
+}
+
+.register-form .ant-btn{
+    width: 100%;
 }

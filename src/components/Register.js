@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Button, message} from 'antd';
+import { Form, Input, Button, message,Icon} from 'antd';
 import $ from 'jquery';
 import {API_ROOT} from '../constant';
+import {Link} from 'react-router-dom'
 
 const FormItem = Form.Item;
 
@@ -25,6 +26,7 @@ class RegistrationForm extends React.Component {
             })
         }).then((response) => {
             message.success(response);
+            this.props.history.push('/login');
         }, (response)=>{
             message.error(response.responseText);
         }).catch((e)=>{
@@ -61,49 +63,17 @@ class RegistrationForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 8,
-        },
-      },
-    };
- 
-
-
     return (
       <Form className = "register-form" onSubmit={this.handleSubmit}>
-        <h1>
-          Registration
-        </h1>
         <FormItem
-          {...formItemLayout}
-          label="Username"
         >
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
           })(
-            <Input />
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
           )}
         </FormItem>
         <FormItem
-          {...formItemLayout}
-          label="Password"
         >
           {getFieldDecorator('password', {
             rules: [{
@@ -112,12 +82,10 @@ class RegistrationForm extends React.Component {
               validator: this.validateToNextPassword,
             }],
           })(
-            <Input type="password" />
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
         <FormItem
-          {...formItemLayout}
-          label="Confirm Password"
         >
           {getFieldDecorator('confirm', {
             rules: [{
@@ -126,13 +94,14 @@ class RegistrationForm extends React.Component {
               validator: this.compareToFirstPassword,
             }],
           })(
-            <Input type="password" onBlur={this.handleConfirmBlur} />
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" onBlur={this.handleConfirmBlur} placeholder="Comfirm Password" />
           )}
         </FormItem>
         
        
-        <FormItem {...tailFormItemLayout}>
+        <FormItem >
           <Button type="primary" htmlType="submit">Register</Button>
+          <h4>Or to <Link to="/login">log in!</Link></h4>
         </FormItem>
       </Form>
     );

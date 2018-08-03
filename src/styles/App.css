@@ -1,6 +1,7 @@
 @import '~antd/dist/antd.css';
 @import './Main.css';
 @import './Register.css';
+@import './login.css';
 
 .App {
   text-align: center;
@@ -22,6 +23,20 @@
   color: #61dafb !important;
   font-size: 1.5em;
   padding-top: 5px;
+}
+
+.pusher{
+  flex:1;
+}
+
+.logout{
+  color: #61dafb;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 5px;
+  float: right;
+  margin: auto 10px;
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {
