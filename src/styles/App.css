@@ -2,6 +2,7 @@
 @import './Main.css';
 @import './Register.css';
 @import './login.css';
+@import './Home.css';
 
 .App {
   text-align: center;

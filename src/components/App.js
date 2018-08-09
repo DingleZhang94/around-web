@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import $ from 'jquery';
 import Header from './Header';
 import Main from './Main';
 import {TOKEN_KEY} from '../constant'
@@ -10,7 +11,7 @@ class App extends Component {
   }
 
   handleLogin = (response) =>{
-    localStorage.setItem(TOKEN_KEY,response)
+    localStorage.setItem(TOKEN_KEY,response);
     this.setState(
       {
         isLoggedIn: true,
