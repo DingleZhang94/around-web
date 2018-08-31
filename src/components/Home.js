@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Tabs, Button, Spin } from 'antd';
+import { Tabs, Spin } from 'antd';
 import { GEO_OPTION, POS_KEY, API_ROOT, TOKEN_KEY, AUTH_PREFIX } from '../constant';
 import Gallery from './Gallery';
 import CreatePostButton from './CreatePostButton';
 
 const TabPane = Tabs.TabPane;
-
-const operations = <Button>Create Post</Button>;
 
 export default class Home extends Component {
   state = {
@@ -99,10 +97,8 @@ export default class Home extends Component {
   }
 
   render() {
-    const operations = <CreatePostButton/>
-    return (
-      
-        <Tabs tabBarExtraContent={operations} className='main-tabs'>
+    return ( 
+        <Tabs tabBarExtraContent={<CreatePostButton/>} className='main-tabs'>
           <TabPane tab="Posts" key="1">{this.getGallaryPanelContent()}</TabPane>
           <TabPane tab="Map" key="2">Content of tab 2</TabPane>
         </Tabs>

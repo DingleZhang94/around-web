@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
-import $ from 'jquery';
 import Header from './Header';
 import Main from './Main';
 import {TOKEN_KEY} from '../constant'
