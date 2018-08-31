@@ -3,6 +3,7 @@ import $ from 'jquery';
 import { Tabs, Button, Spin } from 'antd';
 import { GEO_OPTION, POS_KEY, API_ROOT, TOKEN_KEY, AUTH_PREFIX } from '../constant';
 import Gallery from './Gallery';
+import CreatePostButton from './CreatePostButton';
 
 const TabPane = Tabs.TabPane;
 
@@ -89,7 +90,8 @@ export default class Home extends Component {
     }).then((posts)=>{
       console.log(posts);
       this.setState({
-        loadingPosts:false, posts
+        loadingPosts:false, 
+        posts
       });
     }, (err)=>{
       this.setState({ loadingPosts: false, error: err.responseText });
@@ -97,7 +99,9 @@ export default class Home extends Component {
   }
 
   render() {
+    const operations = <CreatePostButton/>
     return (
+      
         <Tabs tabBarExtraContent={operations} className='main-tabs'>
           <TabPane tab="Posts" key="1">{this.getGallaryPanelContent()}</TabPane>
           <TabPane tab="Map" key="2">Content of tab 2</TabPane>
