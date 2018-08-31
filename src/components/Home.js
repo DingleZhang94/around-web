@@ -98,7 +98,7 @@ export default class Home extends Component {
 
   render() {
     return ( 
-        <Tabs tabBarExtraContent={<CreatePostButton/>} className='main-tabs'>
+        <Tabs tabBarExtraContent={<CreatePostButton loadNearbyPosts={this.loadNearbyPosts}/>} className='main-tabs'>
           <TabPane tab="Posts" key="1">{this.getGallaryPanelContent()}</TabPane>
           <TabPane tab="Map" key="2">Content of tab 2</TabPane>
         </Tabs>
