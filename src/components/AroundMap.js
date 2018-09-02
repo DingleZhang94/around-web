@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {POS_KEY} from '../constant';
 import {
     withScriptjs,
     withGoogleMap,
@@ -8,17 +9,18 @@ import {
 
 class AroundMap extends Component {
     render() {
+        const {lat, lon} = JSON.parse(localStorage.getItem(POS_KEY));
         return (
             <div>
                 <GoogleMap
-                    defaultZoom={8}
-                    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+                    defaultZoom={11}
+                    defaultCenter={{ lat: lat, lng: lon }}
                 >
                     <Marker
-                        position={{ lat: -34.397, lng: 150.644 }}
+                        position={{ lat: lat, lng: lon }}
                     />
                      <Marker
-                        position={{ lat: -35.397, lng: 150.00}}
+                        position={{ lat: lat + 0.02, lng: lon + 0.01 }}
                     />
                 </GoogleMap>
             </div>
