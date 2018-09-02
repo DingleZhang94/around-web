@@ -4,8 +4,8 @@ import {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    Marker,
 } from "react-google-maps";
+import AroundMaker from './AroundMaker';
 
 class AroundMap extends Component {
     render() {
@@ -16,12 +16,7 @@ class AroundMap extends Component {
                     defaultZoom={11}
                     defaultCenter={{ lat: lat, lng: lon }}
                 >
-                    <Marker
-                        position={{ lat: lat, lng: lon }}
-                    />
-                     <Marker
-                        position={{ lat: lat + 0.02, lng: lon + 0.01 }}
-                    />
+                    <AroundMaker lat={lat} lon={lon}/>
                 </GoogleMap>
             </div>
         )
