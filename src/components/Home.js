@@ -78,11 +78,11 @@ export default class Home extends Component {
     }
   }
 
-  loadNearbyPosts = (center) => {
+  loadNearbyPosts = (center, radius) => {
     const {lat, lon} = center ? center: JSON.parse(localStorage.getItem(POS_KEY));
     this.setState({ loadingPosts: true, error: ''});
     $.ajax({
-      url : `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=200`,
+      url : `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=${radius? radius:20}`,
       method :  'GET',
       headers :{
         Authorization: `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`

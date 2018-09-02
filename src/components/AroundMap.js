@@ -15,8 +15,19 @@ class AroundMap extends Component {
     reloadMarkers = () => {
         const mapCenter = this.map.getCenter();
         const center = { lat : mapCenter.lat(), lon:mapCenter.lng()};
-        this.props.loadNearbyPosts(center);
+        const radius = this.getRange();
+        this.props.loadNearbyPosts(center, radius);
     }
+
+    getRange = () => {
+        const center = this.map.getCenter();
+        const bounds = this.map.getBounds();
+        if (center && bounds) {
+          const ne = bounds.getNorthEast();
+          const right = new window.google.maps.LatLng(center.lat(), ne.lng());
+          return 0.001 * window.google.maps.geometry.spherical.computeDistanceBetween(center, right);
+        }
+      }     
 
 
     render() {
