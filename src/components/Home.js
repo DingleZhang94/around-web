@@ -4,6 +4,7 @@ import { Tabs, Spin } from 'antd';
 import { GEO_OPTION, POS_KEY, API_ROOT, TOKEN_KEY, AUTH_PREFIX } from '../constant';
 import Gallery from './Gallery';
 import CreatePostButton from './CreatePostButton';
+import { WrappedAroundMap } from './AroundMap';
 
 const TabPane = Tabs.TabPane;
 
@@ -80,7 +81,7 @@ export default class Home extends Component {
     const {lat, lon} = JSON.parse(localStorage.getItem(POS_KEY));
     this.setState({ loadingPosts: true, error: ''});
     $.ajax({
-      url : `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=20000`,
+      url : `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=2000`,
       method :  'GET',
       headers :{
         Authorization: `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`
@@ -100,7 +101,15 @@ export default class Home extends Component {
     return ( 
         <Tabs tabBarExtraContent={<CreatePostButton loadNearbyPosts={this.loadNearbyPosts}/>} className='main-tabs'>
           <TabPane tab="Posts" key="1">{this.getGallaryPanelContent()}</TabPane>
-          <TabPane tab="Map" key="2">Content of tab 2</TabPane>
+          <TabPane tab="Video Posts" key="2">Content of tab 2</TabPane>
+          <TabPane tab="Map" key="3">
+            <WrappedAroundMap
+             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3CEh9DXuyjozqptVB5LA-dN7MxWWkr9s&v=3.exp&libraries=geometry,drawing,places"
+             loadingElement={<div style={{ height: `100%` }} />}
+             containerElement={<div style={{ height: `400px` }} />}
+             mapElement={<div style={{ height: `100%` }} />}
+            />
+          </TabPane>
         </Tabs>
     )
   }
