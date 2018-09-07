@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Tabs, Spin, Row, Col } from 'antd';
+import { Tabs, Spin, Row, Col, Radio} from 'antd';
 import { GEO_OPTION, POS_KEY, API_ROOT, TOKEN_KEY, AUTH_PREFIX } from '../constant';
 import Gallery from './Gallery';
 import CreatePostButton from './CreatePostButton';
 import { WrappedAroundMap } from './AroundMap';
 
 const TabPane = Tabs.TabPane;
+const RadioGroup = Radio.Group;
 
 export default class Home extends Component {
   state = {
@@ -102,8 +103,9 @@ export default class Home extends Component {
   loadNearbyPosts = (center, radius) => {
     const { lat, lon } = center ? center : JSON.parse(localStorage.getItem(POS_KEY));
     this.setState({ loadingPosts: true, error: '' });
+    const endPoint = this.state.topic === 'around' ? 'search' : 'cluster';
     $.ajax({
-      url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=${radius ? radius : 20}`,
+      url: `${API_ROOT}/${endPoint}?lat=${lat}&lon=${lon}&range=${radius ? radius : 20}&term=${this.state.topic}`,
       method: 'GET',
       headers: {
         Authorization: `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`
@@ -119,22 +121,34 @@ export default class Home extends Component {
     });
   }
 
+  onTopicChange = (e) => {
+    this.setState({
+      topic: e.target.value,
+    }, this.loadNearbyPosts);
+  }
+
   render() {
     return (
-      <Tabs tabBarExtraContent={<CreatePostButton loadNearbyPosts={this.loadNearbyPosts} />} className='main-tabs'>
-        <TabPane tab="Posts" key="1">{this.getPanelContent("image")}</TabPane>
-        <TabPane tab="Video Posts" key="2">{this.getPanelContent("video")}</TabPane>
-        <TabPane tab="Map" key="3">
-          <WrappedAroundMap
-            posts={this.state.posts}
-            loadNearbyPosts={this.loadNearbyPosts}
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3CEh9DXuyjozqptVB5LA-dN7MxWWkr9s&v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `500px` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </TabPane>
-      </Tabs>
+      <div className='main-tabs'>
+        <RadioGroup className="radio-group" onChange={this.onTopicChange} value={this.state.topic}>
+          <Radio className="radio" value="around">Post Around me</Radio>
+          <Radio className="radio" value="face">Faces Arount world</Radio>
+        </RadioGroup>
+        <Tabs tabBarExtraContent={<CreatePostButton loadNearbyPosts={this.loadNearbyPosts} />} >
+          <TabPane tab="Posts" key="1">{this.getPanelContent("image")}</TabPane>
+          <TabPane tab="Video Posts" key="2">{this.getPanelContent("video")}</TabPane>
+          <TabPane tab="Map" key="3">
+            <WrappedAroundMap
+              posts={this.state.posts}
+              loadNearbyPosts={this.loadNearbyPosts}
+              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3CEh9DXuyjozqptVB5LA-dN7MxWWkr9s&v=3.exp&libraries=geometry,drawing,places"
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `500px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+            />
+          </TabPane>
+        </Tabs>
+      </div>
     )
   }
 }

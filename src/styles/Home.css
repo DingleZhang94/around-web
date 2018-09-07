@@ -5,3 +5,12 @@
 .video-block{
     width: 100%;
 }
+
+.radio-group{
+    width: 60%;
+}
+
+.radio{
+    margin-left: 40px;
+    margin-right: 40px;
+}
